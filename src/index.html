@@ -6,7 +6,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
     <script src="cotroller.js" ></script>
-    <script src="jsfile.js" ></script>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
@@ -30,6 +30,10 @@
 
             font: 20px Arial, sans-serif;
         }
+        .modal-dialog {
+            z-index: 1050;
+        }
+
     </style>
 </head>
 
@@ -75,10 +79,10 @@
             <span class="num" >{{item.count}}</span>
         </td>
         <td>
-           $  {{ item.price}}
+             {{item.price}}
         </td>
         <td>
-            <input type="button" class="btn btn-success" value="Edit"  ng-click="edit(item)">
+            <input data-target="#myModal" data-toggle="modal" type="button" class="btn btn-success" value="Edit"  ng-click="edit(item)">
             <input type="button" class="btn btn-primary" value="Delete"  ng-click="remove(item.name)">
         </td>
     </tr>
@@ -103,7 +107,7 @@
 
                 <div class="modal-body">
 
-                    <form name="addform" class="form-horizontal" role="form" ng-submit="addRow()" ng-submit="submitForm()">
+                    <form name="addform" class="form-horizontal" role="form"  ng-submit="submitForm()">
 
                         <div class="form-group"  >
 
@@ -111,7 +115,7 @@
 
                             <div class="col-md-4" ng-class="{ 'has-error' : addform.name.$invalid && !addform.name.$pristine }">
                                 <input type="text" class="form-control" name="name" id="name"
-                                       ng-model="name" ng-model="model.selected.name" ng-maxlength="15" required />
+                                        ng-model="model.selected.name" ng-maxlength="15" required />
                                 <p ng-show="addform.name.$error.maxlength" class="help-block">name is too long.</p>
 
                             </div>
@@ -123,7 +127,7 @@
 
                             <div class="col-md-4" ng-class="{ 'has-error' : addform.count.$invalid && !addform.count.$pristine }">
                                 <input type="number" class="form-control" name="count" id="count"
-                                       ng-model="count"  ng-model="model.selected.count" ng-min="0" required   />
+                                         ng-model="model.selected.count" ng-min="0" required   />
                                 <p ng-show="addform.count.$error.min" class="help-block">must be positive</p>
 
                             </div>
@@ -135,7 +139,7 @@
 
                             <div class="col-md-4" ng-class="{ 'has-error' : addform.price.$invalid && !addform.price.$pristine }">
                                 <input type="number" class="form-control" name="price" id="price"
-                                       ng-model="price" ng-model="model.selected.price" ng-min="0" required  />
+                                        ng-model="model.selected.price" ng-min="0" required  />
                                 <p ng-show="addform.price.$error.min" class="help-block">must be positive</p>
                             </div>
 
@@ -143,7 +147,7 @@
 
                         <div class="form-group">
                             <div style="padding-left:110px">
-                                <input type="submit"  ng-disabled="addform.$invalid" value="Add" class="btn btn-primary"  ng-click="save(name)"/>
+                                <input type="submit"  ng-disabled="addform.$invalid" value="Add" class="btn btn-primary"  ng-click="save(model.name)"/>
                             </div>
                         </div>
 
