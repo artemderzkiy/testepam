@@ -9,7 +9,7 @@
     <script src="jsfile.js" ></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
-
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <script src="https://use.fontawesome.com/4d65b591a2.js"></script>
@@ -36,7 +36,7 @@
 <body ng-controller="itemCtrl">
 
 
-    <div class="col-md-4">
+    <div class="col-md-3">
         <input class="form-control input-lg" type="search" id="formGroupInputLarge" placeholder="search in items" ng-model="searchText.name">
 
     </div>
@@ -84,39 +84,89 @@
     </tr>
 </table>
 
+    <div class="col-md-3">
+    <button class="btn btn-primary btn-lg" role="button" data-target="#myModal" data-toggle="modal" >
+        ДОБАВИТЬ ЧЕРЕЗ МОДАЛЬ
+    </button>
 
-<form name="addform" class="form-horizontal" role="form" ng-submit="addRow()" ng-submit="submitForm()">
-    <div class="form-group"  >
-        <label class="col-md-2 control-label">Name</label>
-        <div class="col-md-4" ng-class="{ 'has-error' : addform.name.$invalid && !addform.name.$pristine }">
-            <input type="text" class="form-control" name="name" id="name"
-                   ng-model="name" ng-model="model.selected.name" ng-maxlength="15" required />
-            <p ng-show="addform.name.$error.maxlength" class="help-block">name is too long.</p>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-2 control-label">Count</label>
-        <div class="col-md-4" ng-class="{ 'has-error' : addform.count.$invalid && !addform.count.$pristine }">
-            <input type="number" class="form-control" name="count" id="count"
-                    ng-model="count"  ng-model="model.selected.count" ng-min="0" required   />
-            <p ng-show="addform.count.$error.min" class="help-block">must be positive</p>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-2 control-label">Price</label>
-        <div class="col-md-4" ng-class="{ 'has-error' : addform.price.$invalid && !addform.price.$pristine }">
-            <input type="number" class="form-control" name="price" id="price"
-                   ng-model="price" ng-model="model.selected.price" ng-min="0" required  />
-            <p ng-show="addform.price.$error.min" class="help-block">must be positive</p>
-        </div>
+
+
+    <div class="modal" id="myModal" >
+
+        <div class="modal-dialog ">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Добавим товар</h5>
+                </div>
+
+                <div class="modal-body">
+
+                    <form name="addform" class="form-horizontal" role="form" ng-submit="addRow()" ng-submit="submitForm()">
+
+                        <div class="form-group"  >
+
+                            <label class="col-md-2 control-label">Name</label>
+
+                            <div class="col-md-4" ng-class="{ 'has-error' : addform.name.$invalid && !addform.name.$pristine }">
+                                <input type="text" class="form-control" name="name" id="name"
+                                       ng-model="name" ng-model="model.selected.name" ng-maxlength="15" required />
+                                <p ng-show="addform.name.$error.maxlength" class="help-block">name is too long.</p>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <label class="col-md-2 control-label">Count</label>
+
+                            <div class="col-md-4" ng-class="{ 'has-error' : addform.count.$invalid && !addform.count.$pristine }">
+                                <input type="number" class="form-control" name="count" id="count"
+                                       ng-model="count"  ng-model="model.selected.count" ng-min="0" required   />
+                                <p ng-show="addform.count.$error.min" class="help-block">must be positive</p>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <label class="col-md-2 control-label">Price</label>
+
+                            <div class="col-md-4" ng-class="{ 'has-error' : addform.price.$invalid && !addform.price.$pristine }">
+                                <input type="number" class="form-control" name="price" id="price"
+                                       ng-model="price" ng-model="model.selected.price" ng-min="0" required  />
+                                <p ng-show="addform.price.$error.min" class="help-block">must be positive</p>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <div style="padding-left:110px">
+                                <input type="submit"  ng-disabled="addform.$invalid" value="Add" class="btn btn-primary"  ng-click="save(name)"/>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                </div>
+
+            </div>
+
     </div>
 
-    <div class="form-group">
-        <div style="padding-left:110px">
-            <input type="submit"  ng-disabled="addform.$invalid" value="Add" class="btn btn-primary"  ng-click="save(name)"/>
-        </div>
-    </div>
-</form>
+</div>
+
+</div>
+
+
+
+
+
 </body>
 </html>
 

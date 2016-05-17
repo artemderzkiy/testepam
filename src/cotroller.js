@@ -10,7 +10,7 @@ testApp.controller("itemCtrl", function($scope) {
         ],
         selected: {}
     };
-
+//добавление
     $scope.addRow = function () {
         $scope.model.items.push({'name': $scope.name, 'count':$scope.count, 'price': $scope.price});
         $scope.name = '';
@@ -18,7 +18,7 @@ testApp.controller("itemCtrl", function($scope) {
         $scope.price = '';
 
     };
-
+//удаление
 $scope.remove = function (name) {
     var ans = confirm("Вы подтверждаете удаление?");
     if (ans==true) {
@@ -36,23 +36,21 @@ $scope.remove = function (name) {
     }
     
 };
-
+//не воркает
     $scope.edit = function (item) {
         $scope.model.selected = angular.copy(item);
     };
-
+//тоже почему то
     $scope.save = function (name) {
         console.log("Saving contact");
         $scope.model.items[name] = angular.copy($scope.model.selected);
         $scope.reset();
     };
 
-
+//пока не ебу для чего
     $scope.reset = function () {
         $scope.model.selected = {};
     };
-
-
 
 
 
