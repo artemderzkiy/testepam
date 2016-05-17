@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html lang="ru-ru" ng-app="testApp" xmlns:filter="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>Заготовка</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="cotroller.js" ></script>
+    <script src="jsfile.js" ></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://use.fontawesome.com/4d65b591a2.js"></script>
+
+    <style>
+
+        .num {
+            border-radius: 50%;
+
+            width: 20px;
+            height: 10px;
+            padding: 2px;
+
+            background: #fff;
+            border: 2px solid #666;
+            color: #666;
+            text-align: center;
+
+            font: 20px Arial, sans-serif;
+        }
+    </style>
+</head>
+
+<body ng-controller="itemCtrl">
+
+
+    <div class="col-md-4">
+        <input class="form-control input-lg" type="search" id="formGroupInputLarge" placeholder="search in items" ng-model="searchText.name">
+
+    </div>
+
+
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>
+              Name
+        </th>
+        <th>
+            <a href="#" ng-click="sortType = 'count'; sortReverse = !sortReverse">
+                Count
+                <i ng-show="sortType == 'count' && !sortReverse" class="fa fa-caret-down"></i>
+                <i ng-show="sortType == 'count' && sortReverse" class="fa fa-caret-up"></i>
+            </a>
+        </th>
+        <th>
+            <a href="#" ng-click="sortType = 'price';sortReverse = !sortReverse">
+                Price
+                <i ng-show="sortType == 'price' && !sortReverse" class="fa fa-caret-down"></i>
+                <i ng-show="sortType == 'price' && sortReverse" class="fa fa-caret-up"></i>
+            </a>
+        </th>
+        <th>Actions
+        </th>
+    </tr>
+    </thead>
+    <tr ng-repeat="item in model.items | filter:searchText | orderBy:sortType:sortReverse"   >
+        <td>
+            {{item.name}}
+        </td>
+        <td>
+            <span class="num" >{{item.count}}</span>
+        </td>
+        <td>
+           $  {{ item.price}}
+        </td>
+        <td>
+            <input type="button" class="btn btn-success" value="Edit"  ng-click="edit(item)">
+            <input type="button" class="btn btn-primary" value="Delete"  ng-click="remove(item.name)">
+        </td>
+    </tr>
+</table>
+
+
+<form name="addform" class="form-horizontal" role="form" ng-submit="addRow()" ng-submit="submitForm()">
+    <div class="form-group"  >
+        <label class="col-md-2 control-label">Name</label>
+        <div class="col-md-4" ng-class="{ 'has-error' : addform.name.$invalid && !addform.name.$pristine }">
+            <input type="text" class="form-control" name="name" id="name"
+                   ng-model="name" ng-model="model.selected.name" ng-maxlength="15" required />
+            <p ng-show="addform.name.$error.maxlength" class="help-block">name is too long.</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">Count</label>
+        <div class="col-md-4" ng-class="{ 'has-error' : addform.count.$invalid && !addform.count.$pristine }">
+            <input type="number" class="form-control" name="count" id="count"
+                    ng-model="count"  ng-model="model.selected.count" ng-min="0" required   />
+            <p ng-show="addform.count.$error.min" class="help-block">must be positive</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">Price</label>
+        <div class="col-md-4" ng-class="{ 'has-error' : addform.price.$invalid && !addform.price.$pristine }">
+            <input type="number" class="form-control" name="price" id="price"
+                   ng-model="price" ng-model="model.selected.price" ng-min="0" required  />
+            <p ng-show="addform.price.$error.min" class="help-block">must be positive</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div style="padding-left:110px">
+            <input type="submit"  ng-disabled="addform.$invalid" value="Add" class="btn btn-primary"  ng-click="save(name)"/>
+        </div>
+    </div>
+</form>
+</body>
+</html>
+
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+-->
+
+
