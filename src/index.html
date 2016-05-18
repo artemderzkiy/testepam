@@ -2,17 +2,17 @@
 <html lang="ru-ru" ng-app="testApp" xmlns:filter="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
-    <title>Заготовка</title>
+    <title>Item Table</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
     <script src="cotroller.js" ></script>
-
-
+    <script src="accounting.js" ></script>
+    <script src="accounting.min.js" ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <script src="https://use.fontawesome.com/4d65b591a2.js"></script>
+
 
     <style>
 
@@ -34,19 +34,19 @@
             z-index: 1050;
         }
 
+
     </style>
 </head>
 
 <body ng-controller="itemCtrl">
 
-
+<!-- filter -->
     <div class="col-md-3">
-        <input class="form-control input-lg" type="search" id="formGroupInputLarge" placeholder="search in items" ng-model="searchText.name">
-
+        <input class="form-control input-lg" type="search" id="formGroupInputLarge" placeholder="Search in items" ng-model="searchText.name">
     </div>
 
 
-
+<!-- main table -->
 <table class="table table-hover">
     <thead>
     <tr>
@@ -79,21 +79,20 @@
             <span class="num" >{{item.count}}</span>
         </td>
         <td>
-             {{item.price}}
+          {{item.price | currency:"$"}}
         </td>
         <td>
-            <input data-target="#myModal" data-toggle="modal" type="button" class="btn btn-success" value="Edit"  ng-click="edit(item)">
-            <input type="button" class="btn btn-primary" value="Delete"  ng-click="remove(item.name)">
-        </td>
+            <input data-target="#myModal" data-toggle="modal" type="button" class="btn btn-success" value="Edit"  ng-click="edit(item)" ng-click="change()">
+            <input type="button" class="btn btn-primary" value="Delete"   ng-click="remove(item.name)"  role="button" data-target="#myModal-1" data-toggle="modal">
+         </td>
     </tr>
 </table>
 
+<!-- modal window for adding\editing -->
     <div class="col-md-3">
     <button class="btn btn-primary btn-lg" role="button" data-target="#myModal" data-toggle="modal" >
-        ДОБАВИТЬ ЧЕРЕЗ МОДАЛЬ
+        Add new item
     </button>
-
-
 
     <div class="modal" id="myModal" >
 
@@ -102,7 +101,7 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Добавим товар</h5>
+                    <h5 class="modal-title">Add new item</h5>
                 </div>
 
                 <div class="modal-body">
@@ -142,40 +141,24 @@
                                         ng-model="model.selected.price" ng-min="0" required  />
                                 <p ng-show="addform.price.$error.min" class="help-block">must be positive</p>
                             </div>
-
                         </div>
-
                         <div class="form-group">
                             <div style="padding-left:110px">
-                                <input type="submit"  ng-disabled="addform.$invalid" value="Add" class="btn btn-primary"  ng-click="save(model.name)"/>
+                                <input type="submit"  ng-disabled="addform.$invalid" value="Add" class="btn btn-primary val"  ng-click="save(model.name)"/>
                             </div>
                         </div>
-
                     </form>
-
                 </div>
-
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
-
             </div>
-
     </div>
-
 </div>
-
 </div>
-
-
-
-
 
 </body>
 </html>
 
-<!-- In production use:
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
--->
 
 
